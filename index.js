@@ -12,11 +12,17 @@ const conn = require('./db/conn')
 const User = require('./models/User')
 const Tought = require('./models/Tought')
 
+// Import Controllers
+const ToughtController = require('./controllers/ToughtController')
+
+// Import Routes
+const toughtsRoutes = require('./routes/toughtsRoutes')
+
 // Template Engine
 app.engine('handlebars', exphbs.engine())
 app.set('view engine', 'handlebars')
 
-// Receber resposta do body
+// Get response of body
 app.use(express.urlencoded({
     extended: true
 }))
@@ -44,7 +50,7 @@ app.use(
 )
 
 // Flash Messages
-app.use(flash)
+app.use(flash())
 
 // Public Path
 app.use(express.static('public'))
@@ -57,6 +63,11 @@ app.use((req, res, next) => {
 
     next()
 })
+
+// Routes
+app.use('/toughts', toughtsRoutes)
+
+app.get('/', ToughtController.showToughts)
 
 conn
     .sync()
