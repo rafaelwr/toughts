@@ -19,6 +19,7 @@ const AuthController = require('./controllers/AuthController')
 // Import Routes
 const toughtsRoutes = require('./routes/toughtsRoutes')
 const authRoutes = require('./routes/authRoutes')
+const usersRoutes = require('./routes/usersRoutes')
 
 // Template Engine
 app.engine('handlebars', exphbs.engine())
@@ -68,6 +69,7 @@ app.use((req, res, next) => {
 
 // Routes
 app.use('/toughts', toughtsRoutes)
+app.use('/users', usersRoutes)
 app.use('/', authRoutes)
 
 app.get('/', ToughtController.showToughts)
